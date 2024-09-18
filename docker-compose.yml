@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+      # mapping to update  codes, so that no building regularly
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+  
+  flake8:
+    profiles:
+      - testing
+    build:
+      context: .
+    environment:
+      - DEV=true
+    command: sh -c "/py/flake8"
